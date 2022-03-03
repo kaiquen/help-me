@@ -1,56 +1,58 @@
-import React from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { stylesGlobal } from '../../global/styles';
+import ModalCard from '../ModalCard';
+import LinearGradient from 'react-native-linear-gradient';
 
 interface IUser {   
-    user: {
-        login: {
-            uuid:string
-        }
-        name: {
-            title: string;
-            first: string;
-            last:string;
-        }
-        picture: {
-            large: string;
-            medium: string;
-            thumbnail: string;
-        } 
-    }   
+    name: string;
+    photo: string;
+    location: string;
+    services: {
+        title: string;
+        description: string;
+    } 
 }
 
-export default ({user}:IUser) => {
+export default ({name, photo, services, location}:IUser) => {
+    const [modalVisible, setModalVisible] = useState(false);
 
-    return (
-        <View style={styles.container}>
-            <View style={styles.photoBox}>
-                <Image style={styles.photo} source={{uri: user.picture.large}}/>
-            </View>
-            <View style={styles.info}>
-            <Text style={styles.name}>{`${user.name.first} ${user.name.last}`}</Text>
+    const handleCard = () => {
+        setModalVisible(true);
+    }
+    
+    return ( 
+        <LinearGradient style={styles.container} 
+            colors={[stylesGlobal.colors.primary.orange,'#ffa365']} 
+            start={{x:0,y:1}}
+            end={{x:0,y:0}}
+        >
+            <TouchableOpacity onPress={handleCard} activeOpacity={.9} >
+                <View style={styles.photoBox}>
+                    <Image style={styles.photo} source={{uri: photo}}/>
+                </View>
+                <View style={styles.info}>
+                <Text style={styles.name}>{name}</Text>
 
-                <ScrollView showsVerticalScrollIndicator={false}> 
-                    <Text style={styles.title}>Preciso de um pintor</Text>
-                    <Text style={styles.description}>
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum praesentium
-                        veritatis inventore! Incidunt fuga quos quas corrupti suscipit placeat repellat!
-                    </Text>
-                </ScrollView>
-            </View>
-            <Text style={styles.price}>R$ 125,00</Text>
-        </View>
+                    <ScrollView showsVerticalScrollIndicator={false}> 
+                        <Text style={styles.title}>{services.title}</Text>
+                        <Text style={styles.description}>{services.description}</Text>
+                    </ScrollView>
+                </View>
+                <Text style={styles.price}>R$ 125,00</Text>
+                <ModalCard modalVisible={modalVisible} setModalVisible={setModalVisible} name={name} photo={photo} services={services} location={location}/>
+            </TouchableOpacity>
+        </LinearGradient>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#fff',
         height: '98%',
         width: 150,
         alignItems: 'flex-start',
         borderRadius: 10,
-        elevation: 1,
+        elevation: 2,
         padding: 10,
         marginRight: 10,
     },
@@ -60,11 +62,13 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         overflow: 'hidden',
         marginBottom: 10,
+        elevation: 1
     },
     photo: {
         width: '100%',
         height: '100%',
-        resizeMode: 'stretch'
+        resizeMode: 'cover'
+
     },
     info: {
         flex: 1,
@@ -72,19 +76,20 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
     },
     name: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: '800'
     },
     title: {
-        fontSize: 17,
+        fontSize: 16,
         fontWeight: '600'
     },
     description: {
         fontSize: 16,
-        fontWeight: '400'
+        fontWeight: '300'
     },
     price: {
         fontSize: 18,
-        color: stylesGlobal.colors.primary.orange
+        fontWeight: '300',
+        color: "#fff"
     }
 })

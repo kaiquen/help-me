@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { stylesGlobal } from '../../global/styles';
 
 
 export default () => {
+    
     return (
         <View style={styles.container}>
             <Icon name="search" size={20} color={stylesGlobal.colors.primary.gray}/>

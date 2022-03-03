@@ -4,24 +4,16 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { stylesGlobal } from '../../global/styles';
 
 interface IUser {   
-  user: {
-      login: {
-          uuid:string
-      }
-      name: {
-          title: string;
-          first: string;
-          last:string;
-      }
-      picture: {
-          large: string;
-          medium: string;
-          thumbnail: string;
-      }
-  }
+    name: string;
+    photo: string;
+    location: string;
+    services: {
+        title: string;
+        description: string;
+    }
 }
 
-export default ({modalVisible, setModalVisible, user}:IUser | any) => {
+export default ({modalVisible, setModalVisible, name, photo, services, location}:IUser | any) => {
     return (
         <Modal 
           animationType="slide"
@@ -34,10 +26,10 @@ export default ({modalVisible, setModalVisible, user}:IUser | any) => {
             <View style={styles.container}>
                 <View style={styles.profile}>
                   <View style={styles.photoBox}>
-                    <Image style={styles.photo} source={{uri: user.picture.large}}/>
+                    <Image style={styles.photo} source={{uri: photo}}/>
                   </View>
                   <View style={styles.infoBox}>
-                    <Text style={styles.name}>{`${user.name.first} ${user.name.last}`}</Text>
+                    <Text style={styles.name}>{name}</Text>
                     <Text style={styles.location}>
                       <Icon name='enviromento' size={18} color={stylesGlobal.colors.primary.orange}/>
                       Cachoeiro de Itapemirim
@@ -55,12 +47,9 @@ export default ({modalVisible, setModalVisible, user}:IUser | any) => {
                
                 </View>
                 <View style={styles.service}>
-                  <Text style={styles.title}>Preciso de um pintor</Text>
+                  <Text style={styles.title}>{services.title}</Text>
                   <Text style={styles.price}>R$ 125,00</Text>
-                  <Text style={styles.description}>
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum praesentium
-                      veritatis inventore! Incidunt fuga quos quas corrupti suscipit placeat repellat!
-                  </Text>
+                  <Text style={styles.description}>{services.description}</Text>
                 </View>
               
                 <TouchableOpacity style={styles.btnBox}>

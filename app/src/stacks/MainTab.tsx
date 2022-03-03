@@ -16,24 +16,25 @@ export default () => {
     const drawer = useRef(null);
     
     return (
-        <DrawerLayoutAndroid 
-            ref={drawer}
-            drawerWidth={Dimensions.get('window').width}
-            drawerPosition='right'
-            renderNavigationView={Profile}
-        >
-            <Tab.Navigator  
-                tabBar={props => <TabBar {...props}/>} 
-                initialRouteName='Carteira'
-                screenOptions={{
-                    header: (props) => <TabHeader drawer={drawer} {...props}/>
-                }}>
-                <Tab.Screen name="Home" component={Home}/>
-                <Tab.Screen name="Carteira" component={Carteira}/>
-                <Tab.Screen name="Pedir" component={Pedir}/>
-                <Tab.Screen name="Agenda" component={Agenda}/>
-                <Tab.Screen name="Chat" component={Chat}/>
-            </Tab.Navigator>
-        </DrawerLayoutAndroid>
+            <DrawerLayoutAndroid 
+                ref={drawer}
+                drawerWidth={Dimensions.get('window').width}
+                drawerPosition='right'
+                renderNavigationView={() => <Profile drawer={drawer}/>}
+            >
+                <Tab.Navigator  
+                    tabBar={props => <TabBar {...props}/>} 
+                    initialRouteName='Home'
+                    screenOptions={{
+                        header: (props) => <TabHeader drawer={drawer} {...props}/>
+                    }}>
+                    <Tab.Screen name="Home" component={Home}/>
+                    <Tab.Screen name="Carteira" component={Carteira}/>
+                    <Tab.Screen name="Pedir" component={Pedir}/>
+                    <Tab.Screen name="Agenda" component={Agenda}/>
+                    <Tab.Screen name="Chat" component={Chat}/>
+                </Tab.Navigator>
+            </DrawerLayoutAndroid>
+      
     );
 }

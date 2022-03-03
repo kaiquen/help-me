@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator();
 
 export default () => {
     return (
-        <Stack.Navigator initialRouteName='MainTab' screenOptions={{
+        <Stack.Navigator initialRouteName='Preload' screenOptions={{
             headerShown: false
         }}>
             <Stack.Screen name="Preload" component={Preload}/>

@@ -1,50 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FlatList, RefreshControl, StyleSheet, Text, View } from 'react-native';
 import CardService from '../../components/CardService';
 import CardServiceHighlight from '../../components/CardServiceHighlight';
 import ModalCard from '../../components/ModalCard';
 import Search from '../../components/Search';
+import { UserContext } from '../../context/userContext';
 import { stylesGlobal } from '../../global/styles';
-import { api } from '../../services/axios';
 
 interface IUser {   
-    login: {
-        uuid:string
-    }
-    name: {
+    id: string;
+    name: string;
+    photo: string;
+    location: string;
+    services: {
         title: string;
-        first: string;
-        last:string;
+        description: string;
     }
-    picture: {
-        large: string;
-        medium: string;
-        thumbnail: string;
-    }    
 }
 
 export default () => {
-    const [user, setUser] = useState<IUser[]>([]);
-    const [refreshing,  setRefreshing] = useState(false);
+    const user = useContext(UserContext);
     const [selectedUser, setSelectedUser] = useState(null);
-    
-    const changeUser = async () => {
-        try {
-            const {data} = await api.get('/?results=10');
-            setUser(data.results);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-    
-    const onRefresh = () => {
-        changeUser();
-    }
-
+  
     useEffect(() => {
-        changeUser();
+        
     }, []);
-
     
     return (
         <View style={styles.container}>
@@ -55,26 +35,22 @@ export default () => {
                 <Text style={styles.titleCategory}>Destaque</Text>
                 <FlatList 
                     data={user}
-                    renderItem={(user) => <CardServiceHighlight user={user.item}/>}
-                    keyExtractor={user => user.login.uuid}
+                    renderItem={(user) => <CardServiceHighlight name={user.item.name} photo={user.item.photo} services={user.item.services} location={user.item.location}/>}
+                    keyExtractor={user => user.id}
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
+                    extraData={selectedUser}
                 />
             </View>
+
             <View style={styles.cardServicesBox}>
                 <Text style={styles.titleCategory}>Serviços</Text>
                 <FlatList 
                     data={user}
-                    renderItem={user => <CardService user={user.item}/>}
-                    keyExtractor={user => user.login.uuid}
+                    renderItem={user => <CardService name={user.item.name} photo={user.item.photo} services={user.item.services} location={user.item.location}/>}
+                    keyExtractor={user => user.id}
                     showsVerticalScrollIndicator={false}
                     extraData={selectedUser}
-                    refreshControl= {
-                        <RefreshControl
-                            refreshing={refreshing}
-                            onRefresh={onRefresh}
-                        />
-                    }
                 />
             </View>
         </View>
@@ -91,7 +67,7 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingVertical: 20,
         paddingHorizontal: 30,
-        backgroundColor: stylesGlobal.colors.primary.orange
+        backgroundColor: "#ffa365"
     },
     cardServicesHighlight: {
         flex: .7,

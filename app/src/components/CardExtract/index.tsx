@@ -7,7 +7,7 @@ export default () => {
     return (
         <View style={styles.container}>
             <View style={styles.operation}>
-                <Icon name='barcode' size={25} color='#fff'/>
+                <Icon name='barcode' size={25} color={stylesGlobal.colors.primary.orange}/>
             </View>
             <View style={styles.info}>
                 <Text style={styles.infoTitle}>Pagamendo efetuado</Text>
@@ -23,18 +23,20 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'flex-start',
         padding: 10,
-      
+        borderBottomWidth: 1,
+        borderColor: '#99999944'
     },
     operation: {  
         alignItems: 'center',
         justifyContent: 'center',  
-        backgroundColor: '#999',
-        borderRadius: 15,
+        backgroundColor: '#fff',
+        borderRadius: 10,
         width: 40,
-        height: 40
+        height: 40,
+        elevation: 1,
     },
     info: {
-
+        paddingHorizontal: 15,
     },
     infoTitle: {
         color: stylesGlobal.colors.primary.gray,
@@ -51,7 +53,7 @@ const styles = StyleSheet.create({
     },
     date: {
         position: 'absolute',
-        top: 0,
-        right: 0
+        top: 10,
+        right: 10
     }
 })

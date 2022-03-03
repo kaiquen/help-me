@@ -6,7 +6,6 @@ import { stylesGlobal } from '../../global/styles';
 export default () => {
     const navigation = useNavigation<any>();
 
-
     const handleSignIn = () => {
         navigation.navigate('SignIn');
     }

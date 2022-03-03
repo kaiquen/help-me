@@ -53,6 +53,8 @@ export default () => {
                 </View>
                 <View style={styles.extract}>
                     <CardExtract/>
+                    <CardExtract/>
+                    <CardExtract/>
                 </View>
             </View>
         </View>
@@ -62,6 +64,7 @@ export default () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#fff'
     },
     header: {
         width: '100%',
@@ -72,8 +75,7 @@ const styles = StyleSheet.create({
     balance: {
         
     },
-    balanceText: {
-        color: '#999',
+    balanceText: { 
         fontSize: 16,
         fontWeight: '500'
     },
@@ -121,6 +123,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     extract: {
-
+        marginTop: 30,
     }
 })
